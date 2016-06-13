@@ -3,6 +3,7 @@
 
 typedef struct{
     int ponto;
+    int ponto2;
     int peso;
 }T_Aresta;
 
