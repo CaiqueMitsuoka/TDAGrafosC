@@ -14,7 +14,7 @@ int main(){
     scanf("%d", &X);
     Grafo = SetGR(X);
     while(1){
-        printf("\n\nMENU:\nComando    Ação\n   I      Inserir\n   P      Imprimir\n   X      Parar\n   D      Dijkstra\n");
+        printf("\n\nMENU:\nComando    Ação\n   I      Inserir\n   E      Inserir Espelhado\n   P      Imprimir\n   X      Parar\n   D      Dijkstra\n");
         scanf("%s",option);
         switch (option[0]){
             case 'I':
@@ -25,6 +25,15 @@ int main(){
                 printf("peso: ");
                 scanf("%d", &Peso);
                 AdicionarAresta(Grafo,X-1,Y-1,Peso);
+            break;
+            case 'E':
+                printf("de: ");
+                scanf("%d", &X);
+                printf("ate: ");
+                scanf("%d", &Y);
+                printf("peso: ");
+                scanf("%d", &Peso);
+                AdicionarArestaEsp(Grafo,X-1,Y-1,Peso);
             break;
             case 'P':
                 ImprimirGR(Grafo);
