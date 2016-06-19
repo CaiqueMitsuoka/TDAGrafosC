@@ -47,16 +47,13 @@ int dijkstra (int Sair,int Chegar, TGRAFO *graf){
     return distancias[Chegar];
 }
 
-TGRAFO* kruskal (TGRAFO *grafinho , int nVertices)
-{
+TGRAFO* kruskal (TGRAFO *grafinho , int nVertices){
    TGRAFO *ArvGerMinima = NULL;
    T_Aresta pesos[MAX_ARESTAS];
    ArvGerMinima = SetGR(nVertices);
    int i , j , qtArestas , grupo1 , grupo2 , vertices[MAX_VERTICES];
-   for(i=qtArestas=0;i<nVertices;i++)
-   {
-     for(j=0;j < grafinho->lig[i];j++)
-     {
+   for(i=qtArestas=0;i<nVertices;i++){
+     for(j=0;j < grafinho->lig[i];j++){
           pesos[qtArestas].ponto = i;
           pesos[qtArestas].ponto2 = grafinho->Mapa[i][j].ponto;
           pesos[qtArestas].peso = grafinho->Mapa[i][j].peso;
@@ -66,17 +63,12 @@ TGRAFO* kruskal (TGRAFO *grafinho , int nVertices)
    qsort(pesos,qtArestas,sizeof(T_Aresta),comp);
    for(i=0;i<nVertices;i++)
       vertices[i] = i;
-   for(i=0;i<qtArestas;i++)
-   {
-       if(vertices[pesos[i].ponto] != vertices[pesos[i].ponto2])
-       {
-         if (vertices[pesos[i].ponto] < vertices[pesos[i].ponto2])
-         {
+   for(i=0;i<qtArestas;i++){
+       if(vertices[pesos[i].ponto] != vertices[pesos[i].ponto2]){
+         if (vertices[pesos[i].ponto] < vertices[pesos[i].ponto2]){
            grupo1 = vertices[pesos[i].ponto];
            grupo2 = vertices[pesos[i].ponto2];
-         }
-         else
-         {
+         }else{
            grupo1 = vertices[pesos[i].ponto2];
            grupo2 = vertices[pesos[i].ponto];
          }
@@ -113,22 +105,40 @@ int bfs(TGRAFO *Grafo, int origem){
 
 	return qtde;
 }
-void fdfs(TGRAFO *Grafo,int pivo, char visitado[], int *qtde)
-{
-    int j;
-
-    visitado[pivo] = TRUE;
-    *qtde = *qtde + 1;
-
-    for(j = 0; j < Grafo->lig[pivo]; j++)
-    if(visitado[Grafo->Mapa[pivo][j].ponto] == FALSE)
-    fdfs(Grafo, Grafo->Mapa[pivo][j].ponto, visitado, qtde);
-}
+//
+// void fdfs(TGRAFO *Grafo,int pivo, char visitado[], int *qtde)
+// {
+//     int j;
+//
+//     visitado[pivo] = TRUE;
+//     *qtde = *qtde + 1;
+//
+//     for(j = 0; j < Grafo->lig[pivo]; j++){
+//         if(visitado[Grafo->Mapa[pivo][j].ponto] == FALSE){
+//             fdfs(Grafo, Grafo->Mapa[pivo][j].ponto, visitado, qtde);
+//         }
+//     }
+// }
 
 int dfs(TGRAFO *Grafo, int origem){
     char visitado[MAX_VERTICES];
-    int qtde;
+    int qtde = 0;
+
+    void fdfs(TGRAFO *Grafo,int pivo)
+    {
+        int j;
+
+        visitado[pivo] = TRUE;
+        qtde = qtde + 1;
+
+        for(j = 0; j < Grafo->lig[pivo]; j++){
+            if(visitado[Grafo->Mapa[pivo][j].ponto] == FALSE){
+                fdfs(Grafo, Grafo->Mapa[pivo][j].ponto);
+            }
+        }
+    }
+    origem--;
     memset(visitado,0,Grafo->pontos);
-    fdfs(Grafo, origem, visitado, &qtde);
+    fdfs(Grafo, origem/*, visitado, &qtde*/);
     return qtde;
 }
