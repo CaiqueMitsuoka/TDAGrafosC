@@ -14,7 +14,7 @@ int main(){
     scanf("%d", &X);
     Grafo = SetGR(X);
     while(1){
-        printf("\n\nMENU:\nComando    Ação\n   I      Inserir\n   R      Remover\n   E      Inserir Espelhado\n   P      Imprimir\n   X      Parar\n   D      Dijkstra\n");
+        printf("\n\nMENU:\nComando    Ação\n   I      Inserir\n   R      Remover\n   E      Inserir Espelhado\n   P      Imprimir\n   X      Parar\n   D      Dijkstra\n   K      Kruskal\n");
         scanf("%s",option);
         switch (option[0]){
             case 'I':
